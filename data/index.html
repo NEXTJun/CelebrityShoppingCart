@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CelebrityShoppingCart</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <html lang="zh-Hant-TW">
+  <meta charset="utf-8">
+  <title>Steven Paul Jobs's Shopping Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Include Bootstrap4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Include Vue.js -->
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <nav class="navbar navbar-expand-sm fixed-top navbar-dark">
+      <ul class="nav navbar-nav mx-auto">
+        <p class="nav-item my-auto navbar_main_word">$ {{getBalances}}</p>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="container-fluid">
+        <div class="container text-center introduction">
+          <div class="introduction_main_img_box text-center">
+          <img src="img/Gaben.jpg" class="img-fluid" id="introduction_main_img"></img>
+        </div>
+          <p class="introduction_main_word my-auto">Spend Gabe Newell's Money</p>
+        </div>
+        <div class="container row mx-auto shop_item">
+          <div class="shop_item_box col-sm-12 col-md-6 col-lg-4" v-for="(item, index) in itemList">
+            <div class="row">
+
+              <div class="shop_item_img_box p-6 col-sm-6 col-md-12 col-lg-12 text-center">
+                <img v-bind:src="item.imgUrl" class="img-fluid" id="shop_item_img"></img>
+              </div>
+              <div class="shop_item_inf d-flex flex-column justify-content-around col-sm-6 col-md-12 col-lg-12">
+                <p class="shop_item_name mx-auto my-auto">{{item.name}}</p>
+                <p class="shop_item_price mx-auto my-auto">$ {{item.price}}</p>
+                <div class="row mx-auto">
+                  <input type="number" class="form-control text-center col-sm-12 col-md-8 col-lg-8 my-auto" id="shop_item_input" min="0" v-bind:max="item.amount" v-model="item.count" v-on:input="checkItemInput(item)"></input>
+                  <div class="shop_item_button_div d-flex flex-wrap justify-content-around col-sm-12 col-md-4 col-lg-4">
+                    <button type="button" class="btn m-1" id="shop_item_button_buy" v-on:click="addItemCount(item)">BUY</button>
+                    <button type="button" class="btn m-1" id="shop_item_button_sell" v-if="item.count > 0" v-on:click="subItemCount(item)">SELL</button><button type="button" class="btn m-1" id="shop_item_button_sell_none" v-else v-on:click="subItemCount(item)">SELL</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="shopping_cart text-center mx-auto" v-if="sumItemPrice>0">
+          <p class="shopping_cart_main_word my-auto">Your Receipt</p>
+          <div class="d-flex" v-for="(item, index) in itemList">
+            <template v-if="item.count>0">
+              <p class="shopping_cart_item_word_name text-left my-auto">{{item.name}}</p>
+              <p class="shopping_cart_item_word my-auto">x{{item.count}}</p>
+              <p class="shopping_cart_item_word flex-fill my-auto"></p>
+              <p class="shopping_cart_item_word_price my-auto">$ {{item.count * item.price}}</p>
+            </template>
+          </div>
+          <hr class="shopping_cart_item_hr">
+          </hr>
+          <div class="d-flex justify-content-between">
+            <p class="shopping_cart_item_word_settle my-auto">TOTAL</p>
+            <p class="shopping_cart_item_word_price my-auto">$ {{sumItemPrice}}</p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="text-center">
+      <p class="foot_word">Copyright © 2020 <b>NEXT_Jun</b></p>
+    </footer>
+  </div>
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="js/script.js"></script>
+
+</body>
+</html>
