@@ -22,6 +22,29 @@ main {
   color: #f8fef1;
 }
 
+.navbar_right {
+    width: 100px;
+}
+
+#navbar_menu_word {
+  font-size: 20px;
+  color: #f8fef1;
+}
+
+#navbar_dropdown_menu {
+  background: #6da81f;
+  border: 1px #5f931c solid;
+}
+
+.dropdown-menu a {
+  color: #f8fef1;
+}
+
+.dropdown-menu a:hover {
+  color: #1b2d01;
+  background-color: #75b022;
+}
+
 .introduction {
   background: #515f6e;
   background-image: linear-gradient(to bottom right, #32424f, #515f6e);

@@ -1,0 +1,187 @@
+html,
+body,
+#app,
+main,
+footer {
+  background: #1b2838;
+}
+
+main {
+  padding-top: 90px;
+}
+
+footer {
+  padding-top: 20px;
+}
+
+.navbar {
+  height: 70px;
+  background-color: #59d251;
+  background-image: linear-gradient(#75b022, #5f931c);
+}
+
+.navbar_main_word {
+  font-size: 28px;
+  font-weight: 800;
+  color: #f8fef1;
+}
+
+.navbar_right {
+    width: 100px;
+}
+
+#navbar_menu_word {
+  font-size: 20px;
+  color: #f8fef1;
+}
+
+#navbar_dropdown_menu {
+  background: #6da81f;
+  border: 1px #5f931c solid;
+}
+
+.dropdown-menu a {
+  color: #f8fef1;
+}
+
+.dropdown-menu a:hover {
+  color: #1b2d01;
+  background-color: #75b022;
+}
+
+.foot_word {
+  color: #a2c3e2;
+}
+
+.item_header {
+  background: #515f6e;
+  border-radius: 5px;
+}
+
+.item_inf {
+  width: 50%;
+}
+
+.item_amount {
+  width: 15%;
+}
+
+.item_price {
+  width: 15%;
+}
+
+.item_operate {
+  width: 20%;
+}
+
+.item_header_word {
+  font-size: 18px;
+  font-weight: 700;
+  color: #dcdee1;
+}
+
+.item_list_box {
+  background: #515f6e;
+  border-radius: 5px;
+}
+
+.item_list_inf {
+  font-size: 22px;
+  font-weight: 600;
+  color: #dcdee1;
+}
+
+.item_list_amount {
+  font-size: 20px;
+  font-weight: 600;
+  color: #dcdee1;
+}
+
+.item_list_price {
+  font-size: 20px;
+  font-weight: 600;
+  color: #dcdee1;
+}
+
+.item_list_inf_img_box {
+  width: 100px;
+}
+
+#item_list_inf_img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+}
+
+.item_list_inf_name_box {
+  width: 75%;
+}
+
+#item_operate_button_ok {
+  color: #efefef;
+  font-size: 16px;
+  background-image: linear-gradient(#73ad21, #69a01f);
+}
+
+#item_operate_button_setting {
+  color: #efefef;
+  font-size: 16px;
+  background-image: linear-gradient(#3c91ae, #366d93);
+}
+
+#item_operate_button_delete {
+  color: #efefef;
+  font-size: 16px;
+  background-image: linear-gradient(#cc3341, #a01f29);
+}
+
+#item_list_inf_img_input {
+  font-size: 10px;
+  color: #515f6e;
+  background: #515f6e;
+  width: 100%;
+}
+
+#item_list_inf_name_input {
+  background: #dedfe5;
+  width: 95%;
+}
+
+#item_list_inf_amount_input {
+  background: #dedfe5;
+  width: 90%;
+}
+
+#item_list_inf_price_input {
+  background: #dedfe5;
+  width: 90%;
+}
+
+#modal_box {
+  background: #b4b5b7;
+}
+
+.modal-title {
+  color: #2c4054;
+}
+
+#modal_box_delete_confirmation {
+  color: #efefef;
+  font-size: 16px;
+  background-image: linear-gradient(#cc3341, #a01f29);
+}
+
+#modal_box_delete_cancel {
+  color: #efefef;
+  font-size: 16px;
+  background-image: linear-gradient(#3c91ae, #366d93);
+}
+
+#new_item_button_add {
+  color: #efefef;
+  font-size: 26px;
+  background-image: linear-gradient(#3c91ae, #366d93);
+  border-radius: 100px;
+}
