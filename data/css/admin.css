@@ -21,7 +21,7 @@ footer {
 }
 
 .navbar_main_word {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 800;
   color: #f8fef1;
 }
@@ -32,7 +32,7 @@ footer {
 }
 
 #navbar_menu_word {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #f8fef1;
 }
 
@@ -76,7 +76,7 @@ footer {
 }
 
 .item_header_word {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   color: #dcdee1;
 }
@@ -87,19 +87,19 @@ footer {
 }
 
 .item_list_inf {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 600;
   color: #dcdee1;
 }
 
 .item_list_amount {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #dcdee1;
 }
 
 .item_list_price {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #dcdee1;
 }
@@ -122,19 +122,19 @@ footer {
 
 #item_operate_button_ok {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#73ad21, #69a01f);
 }
 
 #item_operate_button_setting {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#3c91ae, #366d93);
 }
 
 #item_operate_button_delete {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#cc3341, #a01f29);
 }
 
@@ -170,19 +170,19 @@ footer {
 
 #modal_box_delete_confirmation {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#cc3341, #a01f29);
 }
 
 #modal_box_delete_cancel {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#3c91ae, #366d93);
 }
 
 #new_item_button_add {
   color: #efefef;
-  font-size: 26px;
+  font-size: 1.625rem;
   background-image: linear-gradient(#3c91ae, #366d93);
   border-radius: 100px;
 }

@@ -17,7 +17,7 @@ main {
 }
 
 .navbar_main_word {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 800;
   color: #f8fef1;
 }
@@ -28,7 +28,7 @@ main {
 }
 
 #navbar_menu_word {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #f8fef1;
 }
 
@@ -69,7 +69,7 @@ main {
 
 .introduction_main_word {
   padding-top: 10px;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #dcdee1;
 }
@@ -97,14 +97,14 @@ main {
 }
 
 .shop_item_name {
-  font-size: 22px;
+  font-size: 1.375rem;
   padding-top: 10px;
   font-weight: 600;
   color: #dcdee1;
 }
 
 .shop_item_price {
-  font-size: 20px;
+  font-size: 1.25rem;
   padding-top: 3px;
   font-weight: 500;
   color: #dcdee1;
@@ -120,19 +120,19 @@ main {
 
 #shop_item_button_buy {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#73ad21, #69a01f);
 }
 
 #shop_item_button_sell_none {
   color: #1b2838;
-  font-size: 16px;
+  font-size: 1rem;
   background: #424b50;
 }
 
 #shop_item_button_sell {
   color: #efefef;
-  font-size: 16px;
+  font-size: 1rem;
   background-image: linear-gradient(#cc3341, #a01f29);
 }
 
@@ -151,20 +151,20 @@ main {
 }
 
 .shopping_cart_item_word {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #a2a3a6;
 }
 
 .shopping_cart_item_word_name {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #a2a3a6;
   width: 65%;
 }
 
 .shopping_cart_item_word_price {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #96c009;
 }
@@ -175,7 +175,7 @@ main {
 }
 
 .shopping_cart_item_word_settle {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 800;
   color: #a2c3e2;
 }
