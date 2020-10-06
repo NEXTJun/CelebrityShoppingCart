@@ -6,6 +6,16 @@ footer {
   background: #1b2838;
 }
 
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
 main {
   padding-top: 60px;
 }
@@ -24,7 +34,13 @@ main {
 
 .navbar_left,
 .navbar_right {
-    width: 100px;
+    width: 6.25rem;
+}
+
+@media (max-width: 540px) {
+  .navbar_left {
+    width: 0px;
+  }
 }
 
 #navbar_menu_word {
