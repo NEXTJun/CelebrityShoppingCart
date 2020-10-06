@@ -26,6 +26,7 @@ footer {
   color: #f8fef1;
 }
 
+.navbar_left,
 .navbar_right {
     width: 100px;
 }
