@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="utf-8">
+  <title>Gabe Newell's Shopping Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+
+  <!-- partial -->
+  <link rel="stylesheet" href="static/css/admin.css">
+
+  <!-- Include Bootstrap4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Include Vue.js -->
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+
+  <!-- Include axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+{% verbatim %}
+<body>
+  <div id="app">
+    <nav class="navbar fixed-top">
+      <div class="navbar_left"></div>
+      <div class="navbar_main nav-item mx-auto">
+        <p class="my-auto navbar_main_word">Shopping Cart Admin</p>
+      </div>
+      <div class="navbar_right">
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" id="navbar_menu_word" href="#" data-toggle="dropdown">Menu</a>
+          <div class="dropdown-menu" id="navbar_dropdown_menu">
+            <a class="dropdown-item" href="index.html"><span class="oi oi-home"></span> Shop</a>
+            <a class="dropdown-item" href="admin.html"><span class="oi oi-person"></span> Admin</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container-fluid px-3">
+
+        <div class="item_header d-flex text-left mb-3 mx-auto py-1 col-12 col-md-10 col-lg-8 col-xl-8">
+          <div class="item_inf item_header_word ml-2 my-auto">name</div>
+          <div class="item_amount item_header_word text-center my-auto">amount</div>
+          <div class="item_price item_header_word text-center my-auto">price</div>
+          <div class="item_operate item_header_word text-center my-auto">operate</div>
+        </div>
+
+        <div class="item_list">
+          <div class="item_list_box d-flex text-left my-2 mx-auto col-12 col-md-10 col-lg-8 col-xl-8" v-for="(item, index) in itemList">
+            <div class="item_inf item_list_inf d-flex my-auto">
+
+              <div class="item_list_inf_img_box p-1 my-auto">
+                <img class="img-fluid" id="item_list_inf_img" v-bind:src="item.imgUrl" alt="" v-if="!isItemEdited(index)">
+                <input class="ml-2" id="item_list_inf_img_input" type="file" accept="image/png, image/jpeg" v-else v-on:input="changeImgToBase64($event,item)"></input>
+              </div>
+              <div class="item_list_inf_name_box my-auto ml-2">
+                <p class="item_list_inf_name my-auto" v-if="!isItemEdited(index)">{{item.name}}</p>
+                <input type="text" class="form-control" id="item_list_inf_name_input" v-model="tmp_item[0].name" placeholder="name" v-else></input>
+              </div>
+            </div>
+
+            <div class="item_amount text-center my-auto">
+              <p class="item_list_amount my-auto" v-if="!isItemEdited(index)">{{item.amount}}</p>
+              <input type="number" class="form-control mx-auto text-center" id="item_list_inf_amount_input" min="0" v-model="tmp_item[0].amount" placeholder="$amount" v-else></input>
+            </div>
+
+            <div class="item_price text-center my-auto">
+              <p class="item_list_price my-auto" v-if="!isItemEdited(index)">$ {{item.price}}</p>
+              <input type="number" class="form-control mx-auto text-center" id="item_list_inf_price_input" min="0" v-model="tmp_item[0].price" placeholder="$price" v-else></input>
+            </div>
+
+            <div class="item_operate item_list_operate my-auto">
+              <div class="item_operate_button_box p-1 text-center" v-if="!isItemEdited(index)">
+                <button type="button" class="btn col-6 my-1" id="item_operate_button_setting" v-on:click="setItem(index,item)">SET</button>
+              </div>
+              <div class="item_operate_button_box p-1 d-flex flex-column flex-md-row justify-content-around" v-else>
+                <button type="button" class="btn col-10 col-md-5 my-1 mx-auto" id="item_operate_button_ok" v-on:click="updateItem(index,item)">OK</button>
+                <button type="button" class="btn col-10 col-md-5 my-1 mx-auto" id="item_operate_button_delete" data-toggle="modal" data-target="#delete_check_modal
+">DEL</button>
+              </div>
+            </div>
+
+            <!-- Jump Modal -->
+            <div class="modal fade" id="delete_check_modal">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content " id="modal_box">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete data?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn" id="modal_box_delete_confirmation" data-dismiss="modal" v-on:click="removeItem()">Delete</button>
+                    <button type="button" class="btn" id="modal_box_delete_cancel" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="new_item">
+          <div class="new_item_button_add_box p-1 text-center">
+            <button type="button" class="btn col-2" id="new_item_button_add" v-if="isEdittingItem()" v-on:click="addSettingItem()">+</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+    <footer class="text-center">
+      <p class="foot_word">Copyright © 2020 <b>NEXT_Jun</b></p>
+    </footer>
+  </div>
+  <!-- partial -->
+  <script  src="static/js/admin.js"></script>
+</body>
+{% endverbatim %}
+
+</html>

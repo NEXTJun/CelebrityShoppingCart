@@ -1,0 +1,98 @@
+html,
+body,
+#app,
+main,
+footer {
+  background: #1b2838;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+main {
+  padding-top: 90px;
+}
+
+footer {
+  padding-top: 20px;
+}
+
+.navbar {
+  height: 70px;
+  background-color: #59d251;
+  background-image: linear-gradient(#75b022, #5f931c);
+}
+
+.navbar_main_word {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #f8fef1;
+}
+
+.navbar_left,
+.navbar_right {
+  width: 6.25rem;
+}
+
+@media (max-width: 540px) {
+  .navbar_left {
+    width: 0px;
+  }
+}
+
+#navbar_menu_word {
+  font-size: 1.25rem;
+  color: #f8fef1;
+}
+
+#navbar_dropdown_menu {
+  background: #6da81f;
+  border: 1px #5f931c solid;
+}
+
+.dropdown-menu a {
+  color: #f8fef1;
+}
+
+.dropdown-menu a:hover {
+  color: #1b2d01;
+  background-color: #75b022;
+}
+
+.foot_word {
+  color: #a2c3e2;
+}
+
+.login_inf {
+  background: #515f6e;
+  border-radius: 5px;
+}
+
+.login_inf_word {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #dcdee1;
+}
+
+.login_inf_gap {
+  height: 30px;
+}
+
+#login_inf_button {
+  color: #efefef;
+  font-size: 1.125rem;
+  font-weight: 500;
+  background-image: linear-gradient(#3c91ae, #366d93);
+}
+
+#login_inf_input_username,
+#login_inf_input_password {
+  background: #dedfe5;
+}
