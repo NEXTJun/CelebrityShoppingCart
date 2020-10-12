@@ -7,7 +7,7 @@ var app = new Vue({
       {
         id: 1,
         name: "萊莎的鍊金工房 2",
-        imgUrl: "https://github.com/NEXTJun/CelebrityShoppingCart/blob/gh-pages/data/img/f8b5b152d5efcbbd42141a9c6e19e5u5.jpg?raw=true",
+        imgUrl: "media/img/f8b5b152d5efcbbd42141a9c6e19e5u5.jpg",
         price: 1990,
         count: 0,
         amount: 99
@@ -15,7 +15,7 @@ var app = new Vue({
       {
         id: 2,
         name: "薩爾達無雙 災厄啟示錄",
-        imgUrl: "https://github.com/NEXTJun/CelebrityShoppingCart/blob/gh-pages/data/img/a31970bdabb8f2d0678c700e2119thn5.jpg?raw=true",
+        imgUrl: "media/img/a31970bdabb8f2d0678c700e2119thn5.jpg",
         price: 2390,
         count: 0,
         amount: 99
@@ -23,7 +23,7 @@ var app = new Vue({
       {
         id: 3,
         name: "十三機兵防衛圈",
-        imgUrl: "https://github.com/NEXTJun/CelebrityShoppingCart/blob/gh-pages/data/img/f35303289e76f0062dcbb16590170tu5.jpg?raw=true",
+        imgUrl: "media/img/f35303289e76f0062dcbb16590170tu5.jpg",
         price: 1790,
         count: 0,
         amount: 99
@@ -31,12 +31,15 @@ var app = new Vue({
       {
         id: 4,
         name: "惡靈古堡3",
-        imgUrl: "https://github.com/NEXTJun/CelebrityShoppingCart/blob/gh-pages/data/img/b4162ce3568e9a669f182ad471175io5.jpg?raw=true",
+        imgUrl: "media/img/b4162ce3568e9a669f182ad471175io5.jpg",
         price: 1790,
         count: 0,
         amount: 99
       }
     ]
+  },
+  mounted() {
+    this.getItemList();
   },
   methods: {
     addItemCount: function (item) {
@@ -57,7 +60,9 @@ var app = new Vue({
       } else if (item.count > item.amount) {
         item.count = item.amount;
       }
-    }
+    },
+    getItemList: function () {
+    },
   },
   computed: {
     sumItemPrice: function () {
