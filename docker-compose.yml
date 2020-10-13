@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./django
+      args:
+        SUPER_USERNAME: "user123"
+        SUPER_PASSWORD: "user123"
+    ports:
+      - "80:80"
+    volumes:
+      - ./django/CelebrityShoppingCart/media:/app/CelebrityShoppingCart/media
+    restart: always
+    container_name: celebrity_shopping_cart_webserver
