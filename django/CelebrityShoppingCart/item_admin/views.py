@@ -10,6 +10,7 @@ import base64
 import hashlib
 
 from item_admin.models import Item
+from item_admin.forms import CheckItemUpdateForm
 
 # Create your views here.
 
@@ -47,7 +48,7 @@ def responseItem(request, id):
 # RESTful Function
     # Create
 def createItem(request):    
-    item = Item.objects.create(name='', imgUrl='')
+    item = Item.objects.create()
     data = readItem(request, item.id)
     return data
 
@@ -68,19 +69,17 @@ def readItem(request, id):
     # Update
 def updateItem(request, id):
     parameter = QueryDict(request.body)
-    datalist = Item.objects.filter(id=id)
-    if len(datalist) is not 0:
-        data = datalist[0]
+    itemlist = Item.objects.filter(id=id)
+    if len(itemlist) is not 0 and checkUpdateData(parameter) is True:
+        token = itemlist[0]
 
-        img_data = parameter.get('imgBase64', None)
-        if img_data is not None:
-            data.imgUrl = handleBase64Img(img_data)
-            
-        data.name = parameter.get('name', data.name)
-        data.price = parameter.get('price', data.price)
-        data.amount = parameter.get('amount', data.amount)
-        data.save()
-        item = list(datalist.values())[0]
+        token.imgUrl = handleBase64Img(parameter.get('imgBase64', None), token.imgUrl)
+        token.name = parameter.get('name', token.name)
+        token.price = parameter.get('price', token.price)
+        token.amount = parameter.get('amount', token.amount)
+        token.save()
+
+        item = list(itemlist.values())[0]
         return JsonResponse(item, safe=False) 
     return JsonResponse({}, safe=False)
 
@@ -91,19 +90,26 @@ def deleteItem(request, id):
     return HttpResponse("")
 
 # Minor Function
-def handleBase64Img(data):
-    # decode base64 data
-    format, imgstr = data.split(';base64,') 
-    ext = format.split('/')[-1]
-    img_content = base64.b64decode(imgstr)
+def checkUpdateData(data):
+    return CheckItemUpdateForm(data).is_valid()
 
-    # create file name by hash
-    md5_obj = hashlib.md5()
-    md5_obj.update(data.encode("utf-8"))
-    md5_value = md5_obj.hexdigest()
-    file_path = 'img/' + md5_value + '.' + ext
+def handleBase64Img(data, raw_data):
+    if data is not None:
+        split_word = ';base64,'
+        if split_word in data:
+            # decode base64 data
+            format, imgstr = data.split(split_word) 
+            ext = format.split('/')[-1]
+            img_content = base64.b64decode(imgstr)
 
-    # save file
-    path = default_storage.save(file_path, ContentFile(img_content))
-    path = settings.MEDIA_URL + path
-    return path
+            # create file name by hash
+            md5_obj = hashlib.md5()
+            md5_obj.update(data.encode("utf-8"))
+            md5_value = md5_obj.hexdigest()
+            file_path = 'img/' + md5_value + '.' + ext
+
+            # save file
+            path = default_storage.save(file_path, ContentFile(img_content))
+            path = settings.MEDIA_URL + path
+            return path
+    return raw_data
