@@ -71,22 +71,19 @@ def updateItem(request, id):
     parameter = QueryDict(request.body)
     itemlist = Item.objects.filter(id=id)
     if len(itemlist) is not 0 and checkUpdateData(parameter) is True:
-        token = itemlist[0]
-
-        token.imgUrl = handleBase64Img(parameter.get('imgBase64', None), token.imgUrl)
-        token.name = parameter.get('name', token.name)
-        token.price = parameter.get('price', token.price)
-        token.amount = parameter.get('amount', token.amount)
-        token.save()
-
-        return readItem(request, id)
+        item = itemlist[0]
+        item.img = handleBase64Img(parameter.get('imgBase64', None), item.img)
+        item.name = parameter.get('name', item.name)
+        item.price = parameter.get('price', item.price)
+        item.amount = parameter.get('amount', item.amount)
+        item.save()
+        return readItemList(request)
     return JsonResponse({}, safe=False)
 
     # Delete
 def deleteItem(request, id):
-    if Item.objects.filter(id=id).delete()[0] is not 0:     # number of deletions 
-        return HttpResponse("OK")
-    return HttpResponse("")
+    Item.objects.filter(id=id).delete()[0]
+    return readItemList(request)
 
 # Minor Function
 def checkUpdateData(data):
@@ -122,5 +119,6 @@ def getModelQueryJson(data, **kwargs):
 
 def handleItemValues(values):   # solve FileField not have media url in values()
     for value in values:
-        value['imgUrl'] = settings.MEDIA_URL + value['imgUrl']
+        if value['img'] is not '':
+            value['img'] = settings.MEDIA_URL + value['img']
     return values

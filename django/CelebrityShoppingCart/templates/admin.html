@@ -57,31 +57,31 @@
             <div class="item_inf item_list_inf d-flex my-auto">
 
               <div class="item_list_inf_img_box p-1 my-auto">
-                <img class="img-fluid" id="item_list_inf_img" v-bind:src="item.imgUrl" alt="" v-if="!isItemEdited(index)">
+                <img class="img-fluid" id="item_list_inf_img" v-bind:src="item.img" alt="" v-if="!isItemEdited(item)">
                 <input class="ml-2" id="item_list_inf_img_input" type="file" accept="image/png, image/jpeg" v-else v-on:input="changeImgToBase64($event,item)"></input>
               </div>
               <div class="item_list_inf_name_box my-auto ml-2">
-                <p class="item_list_inf_name my-auto" v-if="!isItemEdited(index)">{{item.name}}</p>
-                <input type="text" class="form-control" id="item_list_inf_name_input" v-model="tmp_item[0].name" placeholder="name" v-else></input>
+                <p class="item_list_inf_name my-auto" v-if="!isItemEdited(item)">{{item.name}}</p>
+                <input type="text" class="form-control" id="item_list_inf_name_input" v-model="tmp_item.name" placeholder="name" v-else></input>
               </div>
             </div>
 
             <div class="item_amount text-center my-auto">
-              <p class="item_list_amount my-auto" v-if="!isItemEdited(index)">{{item.amount}}</p>
-              <input type="number" class="form-control mx-auto text-center" id="item_list_inf_amount_input" min="0" v-model="tmp_item[0].amount" placeholder="$amount" v-else></input>
+              <p class="item_list_amount my-auto" v-if="!isItemEdited(item)">{{item.amount}}</p>
+              <input type="number" class="form-control mx-auto text-center" id="item_list_inf_amount_input" min="0" v-model="tmp_item.amount" placeholder="$amount" v-else></input>
             </div>
 
             <div class="item_price text-center my-auto">
-              <p class="item_list_price my-auto" v-if="!isItemEdited(index)">$ {{item.price}}</p>
-              <input type="number" class="form-control mx-auto text-center" id="item_list_inf_price_input" min="0" v-model="tmp_item[0].price" placeholder="$price" v-else></input>
+              <p class="item_list_price my-auto" v-if="!isItemEdited(item)">$ {{item.price}}</p>
+              <input type="number" class="form-control mx-auto text-center" id="item_list_inf_price_input" min="0" v-model="tmp_item.price" placeholder="$price" v-else></input>
             </div>
 
             <div class="item_operate item_list_operate my-auto">
-              <div class="item_operate_button_box p-1 text-center" v-if="!isItemEdited(index)">
-                <button type="button" class="btn col-6 my-1" id="item_operate_button_setting" v-on:click="setItem(index,item)">SET</button>
+              <div class="item_operate_button_box p-1 text-center" v-if="!isItemEdited(item)">
+                <button type="button" class="btn col-6 my-1" id="item_operate_button_setting" v-on:click="setItem(item)">SET</button>
               </div>
               <div class="item_operate_button_box p-1 d-flex flex-column flex-md-row justify-content-around" v-else>
-                <button type="button" class="btn col-10 col-md-5 my-1 mx-auto" id="item_operate_button_ok" v-on:click="updateItem(index,item)">OK</button>
+                <button type="button" class="btn col-10 col-md-5 my-1 mx-auto" id="item_operate_button_ok" v-on:click="updateItem(item)">OK</button>
                 <button type="button" class="btn col-10 col-md-5 my-1 mx-auto" id="item_operate_button_delete" data-toggle="modal" data-target="#delete_check_modal
 ">DEL</button>
               </div>

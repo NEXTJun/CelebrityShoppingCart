@@ -33,13 +33,19 @@ var app = new Vue({
       axios
         .get('/api/itemlist')
         .then(function (response) {
-          self.itemList = response.data;
           console.log(response.data);
+          self.itemList = response.data;
+          self.setItemCountProperty();
         })
         .catch(function (error) {
           console.log(error);
         });
     },
+    setItemCountProperty: function() {
+      for (var i in this.itemList) {
+        this.$set(this.itemList[i], 'count', 0);
+      }
+    }
   },
   computed: {
     sumItemPrice: function () {
