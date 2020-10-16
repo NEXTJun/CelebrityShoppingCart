@@ -4,6 +4,9 @@ A simple meme shopping cart web practice
 >Demo :
 >https://nextjun.github.io/CelebrityShoppingCart/data
 
+>Project (BETA) :
+>http://35.185.161.198
+
 ---
 
 ## :memo: What's Next?
@@ -26,8 +29,8 @@ A simple meme shopping cart web practice
 - [x] 商品管理RESTful API
 
 ### Step 4: 部屬雲端
-- [ ] Docker Contain包裹
-- [ ] Heroku部屬
+- [X] Docker Contain包裹
+- [X] Google Cloud Platform部屬
 
 ## 一、 前言
 
@@ -548,9 +551,10 @@ update只能對QuerySet使用, 除了用update函式外, 也可以變數直接�
 ```
 delete可對單一物件和QuerySet使用, 將永久刪除資料
 
-https://medium.com/@homuchen/%E5%88%A9%E7%94%A8docker%E5%BB%BA%E7%AB%8Bpostgresql%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83-5ed41e848c3f
+#### 5. 建立表單模型
+TODO
 
-#### 5. 用戶登入系統
+#### 6. 用戶登入系統
 
 以下運用的是django內建的auth用戶應用, 並不會另外去設計一個新的User資料庫, 主要是有現成的工具方便操作, 也可以和內建的後台管理系統共用
 
@@ -627,3 +631,20 @@ def login(request):
 
 如果需用到CSRF防護, 需在html檔內要傳送資料的`<form>`範圍內, 新增`{% csrf_token %}` template語法, django會在此增加token驗證內容
 
+#### (5) 增加Django內建後台設定
+TODO
+
+---
+
+## 四、 SQL資料庫
+
+https://medium.com/@homuchen/%E5%88%A9%E7%94%A8docker%E5%BB%BA%E7%AB%8Bpostgresql%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83-5ed41e848c3f
+
+## 五、 Docker虛擬技術
+
+見之前文章
++ [Docker Project on Raspberry Pi](https://github.com/NEXTJun/Build_Docker_at_RaspberryPi)
+
+## 六、 雲端部屬
+
+## 七、 此專案部署方法
