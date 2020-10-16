@@ -5,6 +5,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 import base64
 import hashlib
@@ -54,16 +55,15 @@ def createItem(request):
 
     # Read
 def readItemList(request):
-    itemlist = list(Item.objects.all().values())
-    if len(itemlist) is not 0:
-        return JsonResponse(itemlist, safe=False)
+    data = getModelQueryJson(Item.objects.all())
+    if data is not None:
+        return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False) 
 
 def readItem(request, id):
-    itemlist = list(Item.objects.filter(id=id).values())
-    if len(itemlist) is not 0:
-        item = itemlist[0]
-        return JsonResponse(item, safe=False)
+    data = getModelQueryJson(Item.objects.filter(id=id), index=0)
+    if data is not None:
+        return JsonResponse(data, safe=False)
     return JsonResponse({}, safe=False)
 
     # Update
@@ -79,8 +79,7 @@ def updateItem(request, id):
         token.amount = parameter.get('amount', token.amount)
         token.save()
 
-        item = list(itemlist.values())[0]
-        return JsonResponse(item, safe=False) 
+        return readItem(request, id)
     return JsonResponse({}, safe=False)
 
     # Delete
@@ -106,10 +105,22 @@ def handleBase64Img(data, raw_data):
             md5_obj = hashlib.md5()
             md5_obj.update(data.encode("utf-8"))
             md5_value = md5_obj.hexdigest()
-            file_path = 'img/' + md5_value + '.' + ext
-
-            # save file
-            path = default_storage.save(file_path, ContentFile(img_content))
-            path = settings.MEDIA_URL + path
-            return path
+            file_name = md5_value + '.' + ext
+            
+            return SimpleUploadedFile(file_name, img_content)
     return raw_data
+
+def getModelQueryJson(data, **kwargs):
+    if len(data) is not 0:
+        values = handleItemValues(data.values())
+        list_obj = list(values)
+        if 'index' in kwargs:
+            index = kwargs['index']
+            return list_obj[index]
+        return list_obj
+    return None
+
+def handleItemValues(values):   # solve FileField not have media url in values()
+    for value in values:
+        value['imgUrl'] = settings.MEDIA_URL + value['imgUrl']
+    return values

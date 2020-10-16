@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.7-slim
+FROM python:3.7
 
 # Record the maintainer information
 MAINTAINER Kino sssqqq3@hotmail.com
