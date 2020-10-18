@@ -98,8 +98,13 @@ pip install pip -U
 ```
 #### (2) 安裝Django
 ```shell
-pip install Django=2.2
+pip install Django==2.2
 ```
+#### (3) 安裝其他套件
+```shell
+pip install Pillow==6.2.2
+```
+Pillow是資料庫的ImageField需要
 
 #### 2. 初始建立
 #### (1) 建立新專案
@@ -371,9 +376,14 @@ Django對SQL的操作使用ORM(Object Relational Mapping, 物件關聯映射)的
 | DateField            | auto_now = (bool) 物件儲存時自動記錄目前日期, auto_now_add = (bool) 在物件建立時自動記錄目前日期 | 日期格式
 | DateTimeField        | auto_now = (bool) 物件儲存時自動記錄目前日期時間, auto_now_add = (bool) 在物件建立時自動記錄目前日期時間 | 日期時間格式
 | EmailField           | max_length = (uint8) 最大字串長度254字元 | 郵件字串
+| FileField            | upload_to = (path) | 檔案格式 
+| ImageField           | upload_to = (path) | 圖片檔案格式
 
-如果要使用外鍵, 外鍵函式為 `ForeignKey(to, on_delete, **options)`
-其中on_delete為被刪除時的處理, 有以下幾種參數
+`FileField`和`ImageField`的upload_to路徑為MEDIA_ROOT下的路徑位置, 檔案格式可用`SimpleUploadedFile(名稱, 內容)`和`default_storage.save(名稱, 內容)`來產生
+
+注意, 使用`ImageField`需安裝pillow, 安裝pillow時又須要當場編譯, 因此docker image不能用不含編譯函式庫精簡化的python-slam
+
+如果要使用外鍵, 外鍵函式為 `ForeignKey(to, on_delete, **options)`, to為字串表示的表格名稱, on_delete為被刪除時的處理方式, 有以下幾種參數
 + `CASCADE`     : to的主TABLE被刪除時, 子TABLE一並被刪除
 + `PROTECT`     : 跳出錯誤, 阻止被删除
 + `SET_NULL`    : 用null替代
@@ -549,10 +559,108 @@ update只能對QuerySet使用, 除了用update函式外, 也可以變數直接�
 >>> Student.objects.all().delete()
 <QuerySet []>
 ```
-delete可對單一物件和QuerySet使用, 將永久刪除資料
+delete可對單一物件和QuerySet使用, 將永久刪除資料。delete回傳的第一個數值為成功刪除的物件數
 
 #### 5. 建立表單模型
-TODO
+Django可對表單模型化, 自動生成html`<table>`元件, 或比對Query的內容是否和表單要求吻合
+
+#### a. 新增form.py內容
+
+撰寫 `mysite/database/form.py`, 定義模型資料欄位
+
+#### 常用類別
+| Field types          | 參數                | 說明
+| -------------------- |:------------------ |:-------------
+| BooleanField         |                    | 布林值
+| IntegerField         | max_value = (int) 最大值, min_length = (int) 最小值 | 整數, 範圍 -2147483648 ~ 2147483647
+| FloatField           | max_value = (float) 最大值, min_length = (float) 最小值 | 浮點數
+| CharField            | max_length = (uint) 最大字串長度, min_length = (uint) 最小字串長度, strip = (bool) 是否消除字首尾空白, 預設為True | 有上限限制的字串
+| DateField            |                    | 日期格式
+| DateTimeField        |                    | 日期時間格式
+| EmailField           | max_length = (uint) 最大字串長度, min_length = (uint) 最小字串長度 | 郵件字串
+
+#### 常用參數
+| Options        | Type   | 說明
+| -------------- |:------ |:-------------
+| required       | bool   | 可否為空白內容, 預設為False
+| initial        |        | 預設值
+| label          | string | 表格項目標題名
+| error_messages | string | 修改錯誤回傳訊息
+
+常見的`error_messages`類別有以下幾種
++ `required`   : 未找到資料
++ `invalid`    : 格式錯誤 
++ `max_length` : 超過最大長度
++ `min_length` : 超過最小長度
++ `max_value`  : 超過最大數值
++ `min_value`  : 超過最小數值
+
+Example: 
+
+```django
+from django import forms
+
+class StudentForm(forms.Form):
+    name = forms.CharField(max_length=20)
+    grade = forms.IntegerField(min_value=0, required=0)
+    email = forms.CharField(max_length=100, required=True)
+    
+```
+
+#### 常用函式
+| Fuction      | 說明
+| ------------ |:-----------------
+| is_bound     | 確認是否皆填值
+| is_valid     | 驗證內容是否皆正確
+| errors       | 顯示錯誤訊息
+| cleaned_data | 取出以驗證後的值
+
+Example: 
+
+```shell
+##在shell模式下, 需先引入函式
+>>> from database.forms import StudentForm
+```
+
+#### (a) Create
+```shell
+>>> data = {'name':'John', 'grade':60, 'email':'john@email.com'}
+>>> student0 = StudentForm(data)
+```
+
+Form()函式內的填值格式為Query
+
+#### (b) Check
+```shell
+>>> data = {'name':'John', 'grade':60, 'email':'emailcom'}
+>>> student0 = StudentForm()
+>>> student0.is_bound()
+False
+>>> student0.is_valid()
+False
+
+>>> student0 = StudentForm(data)
+>>> student0.is_bound()
+True
+>>> student0.is_valid()
+False
+>>> student0.errors()
+{'email': ['Enter a valid email address.']}
+```
+
+#### (c) Read
+```shell
+>>> data = {'name':'John', 'grade':60, 'email':'john@email.com'}
+>>> student0 = StudentForm(data)
+>>> student0.is_valid()
+True
+>>> student0.cleaned_data()
+{'name':'John', 'grade':60, 'email':'john@email.com'}
+>>> student0.cleaned_data['name']
+John
+```
+
+注意, 使用cleaned_data前需要先用is_valid驗證過資料
 
 #### 6. 用戶登入系統
 
@@ -593,9 +701,20 @@ python manage.py createsuperuser
 ```
 裡面的欄位有Username、Email address、Password, 其中Email address可不填
 
-#### (3) 撰寫views.py登入功能
+#### (3) 增加Django內建後台設定
+如果要在官方內建的後台管理系統處理資料, 需先在`mysite/database/admin.py`內註冊要管理的資料庫
 
-以下將介紹登入常用的指令, 和提供常用的function樣板
+```django
+from django.contrib import admin
+from database.models import Class, Student
+
+admin.site.register(Class)
+admin.site.register(Student)
+```
+
+#### (4) 撰寫views.py登入功能
+
+以下將介紹如果要自製登入頁面和管理系統時常用的指令, 和提供常用的function樣板
 
 ```django
 from django.contrib import auth
@@ -627,12 +746,61 @@ def login(request):
 
 `auth.logout(request)` 用戶登出
 
-#### (4) 修改視圖(如果有用到CSRF防護)
+#### (5) 修改視圖(如果有用到CSRF防護)
 
-如果需用到CSRF防護, 需在html檔內要傳送資料的`<form>`範圍內, 新增`{% csrf_token %}` template語法, django會在此增加token驗證內容
+如果自製登入頁面需用到CSRF防護, 要在html檔內要傳送資料的`<form>`範圍內, 新增`{% csrf_token %}` template語法, django會在此增加token驗證內容
 
-#### (5) 增加Django內建後台設定
-TODO
+#### 7. 增加用戶上傳資料資料夾
+
+Django提供了MEDIA功能, 可以讓用戶上傳的檔案放到設定好的資料夾內, 以下說明處理步驟
+
+#### a. 修改setting.py設定
+```django
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media") 
+```
+
+`MEDIA_URL`：為**DEBUG = TRUE**時, 用戶資源的放置位置。以設定的`/media/`為例, django會將資料庫檔案格式的新增檔案, 儲存到該目錄底下upload_to的位置, 此專案為例, 位置為`mysite/mysite/media`
+
+`MEDIA_ROOT`：為**DEBUG = False**時, 用戶資源的放置位置。以設定的`"media"`為例, 位置為`mysite/mysite/media`
+
+#### b. 修改url.py設定
+```django
+from django.conf import settings
+
+urlpatterns = [
+    ......
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+設定完後, 可在網址後`media/`的位置取用到該資源, 例`http://127.0.0.1/media/`
+
+#### 8. 各坑紀錄
+#### (1) request.POST取不到值
+
+request.POST接受的格式為x-www-form-urlencoded且Method為POST, 如格式或Method錯誤, 將不會有任何值。此時可以使用`request.body`確認原始字串格式
+
+#### (2) Method為PUT如何取request值
+
+可以使用`request.body`取得原始字串後, 再做解析。如果request格式為x-www-form-urlencoded, 可使用`QueryDict(request.body)`取得和request.POST相同格式的QueryDict資料
+
+#### (3) 如何輸出JSON格式
+
+`objects.all()`格式為QuerySet且未列出鍵值, `objects.all().values()`格式為QuerySet有列出鍵值但尚無法以string輸出, 以`list(objects.all().values())`轉成list格式後, 就能通過`JsonResponse(內容, safe=False)`輸出
+
+#### (4) ImageField輸出JSON格式無MEDIA_ROOT路徑
+`objects.all().values()`輸出的ImageField為`ImageField.name`, 無MEDIA_ROOT路徑, 需要經加工後輸出, 方法如下
+
+```django
+values = Student.objects.all().values()
+for value in values:
+    if value['img'] is not '':
+        value['img'] = settings.MEDIA_URL + value['img']
+```
+#### (5) 安裝Pillow失敗
+
+安裝Pillow時會在下載後當場編譯, 如果docker image是不含編譯函式庫且精簡化的python-slam, 會無法安裝。可以使用含編譯函式庫的python-3.X, 或是用`apt-get install pip3`一併下載編譯函式庫
+
 
 ---
 
