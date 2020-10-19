@@ -67,7 +67,7 @@ A simple meme shopping cart web practice
 #### 5. 虛擬化技術
 + Docker
 
-前端框架的選擇上以快速上手為標準, 看中於Bootstrap在RWD和Vue.js操作ODM的便利性。
+前端框架的選擇上以快速上手為標準, 看中於Bootstrap在RWD和Vue.js操作DOM的便利性。
 
 後端使用Python開發的原因為：輕便、跨平台、OOP。 框架上採Django是因為有完整的MVC架構, 雖然Flask輕便快速, 做簡單的服務容易, 但如果立志是要架Web上線, 那使用Django會更容易維護, 未來要轉其他語言的框架較能融會貫通。
 
@@ -155,10 +155,10 @@ python manage.py runserver 0:80
 確認是否出現安裝成功的訊息
 
 #### 3. 修改前端
-為了要將前端與後端對接, Django的template提供了一些語法, 讓函式變數可以控制ODM。因部分ODM操作功能已交給Vue.js處理, 這邊列出些修改上的注意事項。
+為了要將前端與後端對接, Django的template提供了一些語法, 讓函式變數可以控制DOM。因部分DOM操作功能已交給Vue.js處理, 這邊列出些修改上的注意事項。
 
 #### (1) 解決衝突
-因Vue.js對ODM操作的標示符號為 `{{變數}}`, 這和模版對變數的標示符號相同, 進而造成衝突, 解決的方法有幾種
+因Vue.js對DOM操作的標示符號為 `{{變數}}`, 這和模版對變數的標示符號相同, 進而造成衝突, 解決的方法有幾種
 
 1. 改變Vue.js對標示符號的形式, 本人不偏好
 2. 讓Django的template無視內容, 此方法可用以下tag宣告區域內的內容不被渲染
@@ -236,7 +236,7 @@ urlpatterns = [
 `path('here/', views.here)` 是指定如果在網址後的字串字串內容為`here/`, 則去執行`views.here` 的函式
 
 #### 4. 視圖撰寫
-這邊用視圖稱呼, 是因為對Django而言, web頁面的內容可以透過函式變數, 搭配template語法, 去控制改變ODM, 讓web頁面動態化。 但在此專案中, ODM是交由Vue.js搭配RESTful api去控制, 在此不細講變數與template語法的搭配, 重點去講如何操作GET/POST回傳的內容
+這邊用視圖稱呼, 是因為對Django而言, web頁面的內容可以透過函式變數, 搭配template語法, 去控制改變DOM, 讓web頁面動態化。 但在此專案中, DOM是交由Vue.js搭配RESTful api去控制, 在此不細講變數與template語法的搭配, 重點去講如何操作GET/POST回傳的內容
 
 Example:
 
