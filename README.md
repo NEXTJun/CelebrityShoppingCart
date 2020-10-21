@@ -9,28 +9,32 @@ A simple meme shopping cart web practice
 
 ---
 
-## :memo: What's Next?
+## :memo: TODO List
 
-### Step 1: 購物車頁面
+### Step 1: web頁面
 
-- [x] 主頁面切版
-- [x] 登入頁面切版
-- [x] 管理商品頁面切版
-- [x] RWD設計 by Bootstrap4
-- [x] CSS主美術風格
-- [x] 動態網頁 by Vue.js
+- [ ] 遊戲性增加
+- [ ] 登入頁面改vue.js處理
+- [ ] 增加測試帳號至管理商品頁面
+- [ ] CSS動畫效果
+- [ ] 增加favicon.ico
+- [ ] icon、non-image檔案
   
-### Step 2: 框架套用
-- [x] Django MVC架構套用
+### Step 2: 後端框架應用
+- [ ] 研究安全防護
+- [ ] 導入nginx
 
-### Step 3: 後端功能
-- [ ] PostgreSQL資料庫
-- [x] 後台登入管理
-- [x] 商品管理RESTful API
+### Step 3: 資料庫功能
+- [ ] docker PostgreSQL對接
+- [ ] GCP PostgreSQL對接
+- [ ] 導入redis
 
-### Step 4: 部屬雲端
-- [X] Docker Contain包裹
-- [X] Google Cloud Platform部屬
+### Step 4: 雲端部屬
+- [ ] 研究K8S部屬
+
+### Step 5: 其他
+- [ ] 文件內容補齊
+- [ ] 框架、資料庫、雲端 md拆分
 
 ## 一、 前言
 
