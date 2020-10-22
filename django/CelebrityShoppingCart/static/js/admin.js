@@ -21,7 +21,6 @@ var app = new Vue({
     },
     updateItem: function (item) {
       this.putRequestItem();
-      this.cleanTmpItem();
     },
     removeItem: function (item) {
       this.deleteRequestItem();
@@ -140,6 +139,7 @@ var app = new Vue({
         .then(function (response) {
           console.log(response.data);
           self.itemList = response.data;
+          self.cleanTmpItem();
         })
         .catch(function (error) {
           console.log(error);

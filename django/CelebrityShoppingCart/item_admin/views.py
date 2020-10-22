@@ -1,8 +1,5 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django.contrib import auth
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -55,7 +52,7 @@ def createItem(request):
 
     # Read
 def readItemList(request):
-    data = getModelQueryJson(Item.objects.all())
+    data = getModelQueryJson(Item.objects.all().order_by('id'))
     if data is not None:
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False) 
