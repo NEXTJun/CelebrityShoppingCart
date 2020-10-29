@@ -5,46 +5,23 @@ A simple meme shopping cart web practice
 >https://nextjun.github.io/CelebrityShoppingCart/data
 
 >Project (BETA) :
->http://35.185.161.198
+>http://celebrityshoppingcart.nextjun.com/
+
+#### Demo版為靜態網頁, 不會儲存圖片和設定
+#### Project版為實際上網的專案, 需要有帳號密碼才可至後台新增圖片和設定, 不定期關機維修
+>2020/10/30 展示需要, 公開 帳號`user` 密碼`user12345` , 如發現受到惡意攻擊或不雅圖片上傳, 將關閉公開的帳密 
 
 ---
-
-## :memo: TODO List
-
-### Step 1: web頁面
-
-- [ ] 遊戲性增加
-- [ ] 登入頁面改vue.js處理
-- [ ] 增加測試帳號至管理商品頁面
-- [ ] CSS動畫效果
-- [ ] 增加favicon.ico
-- [ ] icon、non-image檔案
-  
-### Step 2: 後端框架應用
-- [ ] 研究安全防護
-- [ ] 導入nginx
-
-### Step 3: 資料庫功能
-- [ ] docker PostgreSQL對接
-- [ ] GCP PostgreSQL對接
-- [ ] 導入redis
-
-### Step 4: 雲端部屬
-- [ ] 研究K8S部屬
-
-### Step 5: 其他
-- [ ] 文件內容補齊
-- [ ] 框架、資料庫、雲端 md拆分
 
 ## 一、 前言
 
 儘管現在Arduino推出大量的模組, 對Maker來說能很方便的接線快速做出Prototype, 不用像早期8051時期要自己layout電路板勞心勞力, 但做出的產品侷限在單一的小裝置。為了擴增裝置的規模, 讓MCU Project不僅僅只是sensor感應、led閃爍和伺服馬達轉動, Maker們將無線通訊的概念加進來, 藍芽、wifi之類，甚至更底層的RF加進來, 這讓專案不受距離限制更有互動性。然而, 擴增硬體帶來的互動性增加, 也意味著複雜度的提高, 讓專案的重現性更加困難, 造成許多作品只是分享在社群媒體上自嗨, 除了少數真有商轉價值的, 其餘都像煙火般稍縱即逝。
 
-讓作品的曝光性和使用度增加, 能帶給一般群眾方便, 升級IOT軟體層面的功能性是最有效益的~~誰叫我沒錢開模lay板產品化~~。除了能有效降低互動input裝置的成本外, 包裝上也更加美觀, 不會帶來滿滿的玩具廉價感, 更重要的是, 程式的複製呈現更方便。
+為了讓作品的曝光性和使用度增加帶給一般群眾方便, 升級IOT軟體層面的功能性是最有效益的~~誰叫我沒錢開模lay板產品化~~。除了能有效降低互動input裝置的成本外, 包裝上也更加美觀, 不會帶來滿滿的玩具廉價感, 更重要的是, 程式的複製呈現更方便。
 
-有了ESP8266和ESP32後, 裝置連網的技術難度從超難降為中等, 連網是連網了, 但技術門檻導致大部分的創作者被隔絕掉, 要怎麼有趣有用是當今Maker社群要思考的, 簡單說就是缺創意。裝置連網最常見的專題有以下幾種：在網頁呈現按鈕讓LED開關閃爍、ESP32-CAM顯示影像在網頁上、溫溼度資料傳送至ThingSpeak之類的雲端資料庫、感測器數據傳送至MQTT或IFTTT串接各類服務、串接Blynk透過手機APP遙控。
+有了ESP8266和ESP32後, 裝置連網的技術難度從超難降為中等, 連網是連網了, 但網際網路的技術門檻還是導致大部分的創作者被隔絕掉。就筆者在圈子打混多年, 裝置連網最常見的專題有以下幾種：在網頁呈現按鈕讓LED開關閃爍、ESP32-CAM顯示影像在網頁上、溫溼度資料傳送至ThingSpeak之類的雲端資料庫、感測器數據傳送至MQTT或IFTTT串接各類服務、串接Blynk透過手機APP遙控。要怎麼讓作品在連網後, 變的有趣有用, 結合其他工具跳脫常見的專案套路, 是當今Maker社群要思考的。
 
-言歸正傳, 此專案和MCU沾不上邊, 只是用來練手軟體的規模能複雜到什麼程度, 以及紀錄建立專案時填坑的筆記, 好方便日後有好的Idea時, 不論是和IOT有沒有關係, 都可以快速做出Prototype Demo。
+言歸正傳, 此專案和過往MCU沾不上邊, 只是用來練手WEB技術的規模能複雜到什麼程度, 以及紀錄建立專案時填坑的筆記, 好方便日後有好的Idea時, 不論是和IOT有沒有關係, 都可以快速做出Prototype Demo。
 
 >## 專案難度: ★★★★★
 
@@ -66,7 +43,7 @@ A simple meme shopping cart web practice
 + Django 2.2
 
 #### 4. 資料庫
-+ PostgreSQL 12.4
++ PostgreSQL 12
 
 #### 5. 虛擬化技術
 + Docker
@@ -75,7 +52,7 @@ A simple meme shopping cart web practice
 
 後端使用Python開發的原因為：輕便、跨平台、OOP。 框架上採Django是因為有完整的MVC架構, 雖然Flask輕便快速, 做簡單的服務容易, 但如果立志是要架Web上線, 那使用Django會更容易維護, 未來要轉其他語言的框架較能融會貫通。
 
-資料庫選擇上以Django有支援的優先, 無奈熟悉的MySQL沒有docker arm cpu的版本...
+資料庫選擇上以Django有支援的優先, 無奈熟悉的MySQL沒有docker arm cpu版本...
 ~~反正都用ORM, 資料庫是哪個也沒差~~
 
 ---
@@ -809,14 +786,220 @@ for value in values:
 ---
 
 ## 四、 SQL資料庫
+### (一) 資料庫介紹
+PostgreSQL資料庫是著名的關聯式開源資料庫, 可透過SQL語法做到基礎的CRUD功能和複雜的資料查詢, 因為屬於大型資料庫管理系統, 需另外安裝程式, 並透過登入方式做操作, 而非像sqlite3這類的嵌入式資料庫透過library簡易產生sql檔
 
-https://medium.com/@homuchen/%E5%88%A9%E7%94%A8docker%E5%BB%BA%E7%AB%8Bpostgresql%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83-5ed41e848c3f
+雖然MySQL也是著名的關聯式開源資料庫, 但被Oracle收購後, 一直有疑慮免費版會支援到何時, 且更要命的是docker並未支援樹莓派這類的ARM CPU開發板
+
+因筆者先前在linux安裝踩坑受挫過, 這邊將介紹兩種使用方式, 第一種是用docker方式安裝, 方便之後部屬能用docker compose管理。第二種是用GCP啟用SQL服務, 這則是方便雲端部屬管理
+
+### (二) Docker安裝
+#### 1. 安裝指令
+```shell
+docker run                                   \
+  -d                                         \
+  -p [本機端port]:5432                        \
+  -e POSTGRES_USER=[預設帳號]                 \
+  -e POSTGRES_PASSWORD=[預設密碼]             \
+  -v "$PWD/pgdata":/var/lib/postgresql/data \
+  postgres:latest
+```
+
+`-d` 建立後移至背景執行
+
+`-p` 將本機端的port進行轉發, 用法為 `-p <本機端port>:<docker端port>`
+
+`-e` 設定docker內環境變數
+
+`-v` 創建共享資料夾, 用法為 `-v <本地資料夾絕對路徑>:<docker內資料夾的絕對路徑>`
+
+`postgres:latest` 為要安裝的PostgreSQL版本, 可依選擇使用其他版, 如`postgres:12`
+
+#### 2. 驗證安裝
+#### (1) docker進入
+以docker進入PostgreSQL時, 首先確定容器有正常運作, 可以指令`docker ps`確認
+
+要進到PostgreSQL CLI介面時, 需使用指令`docker exec -it [容器名稱] psql -U [用戶帳號]`, 其中psql便是PostgreSQL進入CLI介面的指令
+
+#### (2) 第三方工具進入
+除了以CLI方式進入資料庫查詢或控制資料, 也有些第三方工具可以用GUI頁面的方式操作。這邊選用筆者常用的DBeaver, 好處是社群版免費, 且支援多種SQL系統
+
+進入方式簡單, 輸入好Host ip、Username、Password即可登入
+
+### (三) GCP啟用
+GCP身為商業方案, 啟用資料庫已經簡化到WebUI即可新增採公開IP連線的Database, 如要私人IP和其他GCP專案連線也沒問題(尚待筆者研究中), 啟用方法如下：
+
+1. 建立執行個體
+2. 選擇SQL方案(目前有MySQL、PostgreSQL、SQL Server)
+3. 設定ID、密碼、雲端伺服器所在地、資料庫版本和其他細項
+4. 等待系統生成
+
+如果要調整硬體規格、IP設定、權限等, 可透過WebUI另做設定, 部分設定須停止運作才可修改
+
 
 ## 五、 Docker虛擬技術
 
 見之前文章
 + [Docker Project on Raspberry Pi](https://github.com/NEXTJun/Build_Docker_at_RaspberryPi)
 
-## 六、 雲端部屬
+## 六、 Docker雲端部屬
+
+要讓後端上線的方式大致可分成兩種：自己架伺服器、租賃伺服器, 如果只是小型專案, 用電腦開機24小時架伺服器還好, 但如果大型專案須考慮到效能問題, 那麼與其自建機房, 租賃虛擬伺服器是較為方便的做法, 也可省去硬體架設和維護問題。目前市占率最高的虛擬主機提供商有：AWS、GCP、Azure, 因是國際知名公司的服務, 介面也較為友善, 加上虛擬化技術的崛起, 現在架設後端已是越來越容易(望向wordpressr架站的整套方案)。
+
+本專案採用的是Google的GCP服務, 除了初期提供的免費額度體驗, 如果選用低效能主機還可以終身免費。~~嘗試用另一個知名免費平台Heroku, 遇到太多坑解決不能...。~~
+
+GCP的各個設定可分為介面操作或指令操作, 可混用處理, 以下將分開介紹
+
+### (一) GCP初始設定
+#### 1. 介面設定
+首先使用Google帳號, 到[
+Google Cloud Platform](https://cloud.google.com/)啟用服務, 此時系統會要求你建立新專案, 取個好聽的名字後正式上路吧!
+
+因GCP內建的服務項目密密麻麻, 每個服務還要啟用後才可使用, 這邊列出此專案會用到的服務
++ `Compute Engine` : 虛擬機管理
++ `Container Registry` : 儲存docker image檔
++ `VPC網路` : 管理專案port開放及防火牆設定
++ `SQL` : 資料庫服務
+
+
+#### 2. 指令設定
+要以CLI環境用指令部屬, 需要下載安裝[Google Cloud SDK](https://cloud.google.com/sdk), 因本人在Win10環境安裝在帳號認證上遇到些坑, 這邊就推薦另一個方法, 使用GCP內建的Cloud Shell, 使用的指令上並無區別, 設定方法如下。
+
+#### (1) GCP登入
+```shell
+gcloud auth login
+```
+
+如果是用GUI的OS, 系統會自動開啟瀏覽器, 要求登入確認Google帳號； 如果是純CLI的OS, 系統會給出一串網址, 要求你自行到該網址做確認, 並輸入確認完後的出現的認證碼
+
+#### (2) 建立新專案
+```shell
+gcloud config set project [新專案名稱]
+```
+
+取個好聽的名稱, 在GCP開新專案吧。注意, 名稱只能用小寫英文、數字、連字符號
+
+### (二) docker image上傳
+
+#### 1. Docker身份註冊
+
+```shell
+gcloud auth configure-docker
+```
+在docker註冊GCP服務, 之後才可上傳image至Google的Docker倉庫Container Registry
+
+#### 2. Docker Image建立
+```shell
+docker build -t gcr.io/[專案名稱]/[image名稱]:[版本號] [dockerfile位置]
+
+example:
+docker build -t gcr.io/celebrityshoppingcart/django:0.1 .
+```
+
+`專案名稱`：在第一次使用GCP, 會要求新增專案, 此名稱即為所要放置的專案
+
+
+#### 3. Docker Image上傳
+```shell
+docker push gcr.io/[專案名稱]/[image名稱]:[版本號]
+
+example:
+docker push gcr.io/celebrityshoppingcart/django:0.1
+```
+
+如完成上傳, 則該image會放置在專案的Container Registry內
+
+### (三) GCP專案部屬
+#### 1. 介面設定
+#### (1) 建立虛擬機
+選擇GCP的`Compute Engine`, 並點擊`建立執行個體`, 重要設定有以下幾項
+
++ 名稱 : 輸入和專案內其他虛擬機不同的名稱
++ 區域 : 伺服器的所在, 其中`奧勒岡州`、`愛荷華州`、`南卡羅來納州`選用最低等CPU可以免費, 建議選PING值最小的`奧勒岡州(us-west1)`
++ 機器設定 : CPU的規格, 部分區域的N1 f1-micro有免費方案
++ 容器 : 勾選`將容器映像檔部署至這個 VM 執行個體`, 即可輸入image進行部屬, OS也會被自動替換成Container-Optimized OS
++ 防火牆 : 勾選`允許 HTTP 流量`, 完成後會產生`http-server`的標籤, 之後需到`VPC網路`新增設定
+
+#### (2) 設定防火牆
+選擇GCP的`VPC網路`的`防火牆`, 並點擊`建立防火牆規則`, 重要設定有以下幾項
++ 名稱 : 輸入和專案內其他防火牆規則不同的名稱
++ 目標標記 : 輸入`http-server`, 之後有這標籤的虛擬機, 都會套用此防火牆規則
++ 來源IP範圍 : 輸入`0.0.0.0/0`, 所有網路IP都受此規則影響
++ 通訊協定和通訊埠 : 選擇`指定的通訊協定和通訊埠`, 並在tcp輸入80, 80為網頁預設的port, 之後透過網路都可輸入ip位置連到虛擬機網頁伺服器
+
+#### 2. 指令設定
+#### (1) 建立虛擬機
+```shell
+gcloud compute instances                         \
+create-with-container [虛擬機服務名稱]             \
+--container-image [Docker image名稱]              \
+--container-mount-host-path                      \
+    mount-path=[Docker內共享資料夾的絕對路徑],       \
+    host-path=[本地資料夾絕對路徑],                 \
+    mode=rw                                      \
+--tags http-server 
+
+example:
+gcloud compute instances                                  \
+create-with-container celebrityshoppingcart               \
+--container-image gcr.io/celebrityshoppingcart/django:0.1 \
+--container-mount-host-path                               \
+    mount-path=/app/CelebrityShoppingCart/media,          \
+    host-path=/home/next0309/CelebrityShoppingCart/media, \
+    mode=rw                                               \
+--tags http-server
+```
+
+`虛擬機服務名稱` : 此為虛擬機的名稱, 只要不和專案內其他虛擬機名稱重複即可
+
+`--container-image` : 專案Container Registry內的Image名稱, 使用docker 部屬時, 虛擬機OS會自動替換成Container-Optimized OS, 不須另外設定OS
+
+`--container-mount-host-path` : docker volume掛載位置
+
+`--tags` : 給予虛擬機標籤, GCP會自動匹配同標籤的設定, 設定為`http-server` 等同介面模式勾選`允許 HTTP 流量`
+
+還有其他細項設定, 參數可參考GCP官方說明, 也可至介面模式勾選, 部分設定須停止虛擬機後才可更改
+
+#### (2) 設定防火牆
+```shell
+gcloud compute firewall-rules            \
+create [防火牆規則名稱]                    \
+--allow tcp:80                           \
+--target-tags http-server
+```
+`防火牆規則名稱` : 只要不和專案內其他防火牆規則重複即可
+
+`--allow` : 允許通過的port, 其他port預設為關閉
+
+`--target-tags` : 給予標籤, 符合此標籤的虛擬機都會套用此規則
+
+一定要設定好防火牆, 才可與虛擬機溝通, 預設的各通訊方式是全關的
 
 ## 七、 此專案部署方法
+
+## 八、 TODO List :memo:
+
+### Step 1: web頁面
+
+- [ ] 遊戲性增加
+- [ ] 登入頁面改vue.js處理
+- [ ] 增加測試帳號至管理商品頁面
+- [ ] CSS動畫效果
+- [ ] 增加favicon.ico
+- [ ] icon、non-image檔案
+  
+### Step 2: 後端框架應用
+- [ ] 研究安全防護
+- [ ] 導入nginx
+
+### Step 3: 資料庫功能
+- [x] docker PostgreSQL對接
+- [x] GCP PostgreSQL對接
+- [ ] 導入redis
+
+### Step 4: 雲端部屬
+- [ ] 研究K8S部屬
+
+### Step 5: 其他
+- [ ] 文件內容補齊
+- [ ] 框架、資料庫、雲端 md拆分
