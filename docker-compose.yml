@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   web:
     build:
       context: ./django
@@ -12,3 +13,15 @@ services:
       - ./django/CelebrityShoppingCart/media:/app/CelebrityShoppingCart/media
     restart: always
     container_name: celebrity_shopping_cart_webserver
+    depends_on:
+      - database
+
+  database:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "user123"
+    ports:
+      - "5432:5432"
+    container_name: 'celebrity_shopping_cart_database'
+

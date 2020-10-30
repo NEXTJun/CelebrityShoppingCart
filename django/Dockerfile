@@ -26,10 +26,10 @@ RUN apt-get update; \
 # Set the working directory to /app/CelebrityShoppingCart
 WORKDIR /app/CelebrityShoppingCart
 
-# Install any needed packages specified in requirements.txt
-RUN python manage.py makemigrations item_admin; \
-    python manage.py migrate; \
-    echo "from django.contrib.auth.models import User; User.objects.create_superuser('${SUPER_USERNAME}', '', '${SUPER_PASSWORD}')" | python manage.py shell
+# Unmark this line, if database don't have auth data
+# RUN python manage.py makemigrations item_admin; \
+#     python manage.py migrate; \
+#     echo "from django.contrib.auth.models import User; User.objects.create_superuser('${SUPER_USERNAME}', '', '${SUPER_PASSWORD}')" | python manage.py shell
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
