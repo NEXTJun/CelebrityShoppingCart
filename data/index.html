@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <title>Gabe Newell's Shopping Cart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
-  
+  <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+
   <!-- partial -->
   <link rel="stylesheet" href="static/css/style.css">
 
@@ -41,7 +42,7 @@
       <div class="container-fluid">
         <div class="container text-center introduction">
           <div class="introduction_main_img_box text-center">
-          <img src="static/img/Gaben.jpg" class="img-fluid" id="introduction_main_img"></img>
+          <img src="static/img/Gabe.jpg" class="img-fluid" id="introduction_main_img"></img>
         </div>
           <p class="introduction_main_word my-auto">Spend Gabe Newell's Money</p>
         </div>
@@ -50,7 +51,9 @@
             <div class="row">
 
               <div class="shop_item_img_box p-6 col-sm-6 col-md-12 col-lg-12 text-center">
-                <img v-bind:src="item.imgUrl" class="img-fluid" id="shop_item_img"></img>
+                <img v-bind:src="item.imgUrl" class="img-fluid" id="shop_item_img" v-if="item.imgUrl != ''">
+                <img src="static/img/none-img.png" class="img-fluid" id="shop_item_img" v-else>
+                </img>
               </div>
               <div class="shop_item_inf d-flex flex-column justify-content-around col-sm-6 col-md-12 col-lg-12">
                 <p class="shop_item_name mx-auto my-auto">{{item.name}}</p>
@@ -82,7 +85,41 @@
             <p class="shopping_cart_item_word_settle my-auto">TOTAL</p>
             <p class="shopping_cart_item_word_price my-auto">$ {{sumItemPrice}}</p>
           </div>
+          <div class="shopping_cart_button_box mt-3">
+            <button type="button" class="btn m-1" id="shopping_cart_button_checkout" data-toggle="modal" data-target="#shopping_cart_button_checkout_modal"><span class="oi oi-cart"></span> Checkout</button>
+          </div>
         </div>
+        
+        <!-- Jump Modal -->
+        <div class="modal fade" id="shopping_cart_button_checkout_modal">
+          <div class="modal-dialog">
+            <div class="modal-content " id="shopping_cart_button_checkout_modal_box">
+              <div class="modal-body mx-auto">
+                <div v-for="(item) in checkout_info_list">
+                  <div class="shopping_cart_button_checkout_modal_body" v-show="checkCheckoutInfoInRange(item)">
+                    <h2 class="shopping_cart_button_checkout_modal_title text-center">{{item.title}}</h2>
+                    <div class="shopping_cart_button_checkout_modal_img_box">
+                      <img v-bind:src="item.imgUrl" class="img-fluid" id="shopping_cart_button_checkout_modal_img"></img>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer container-fluid">
+                <div class="shopping_cart_button_checkout_modal_content_box mx-auto col-9 col-sm-10">
+                  <div v-for="(item) in checkout_info_list">
+                    <div class="shopping_cart_button_checkout_modal_content_box" v-show="checkCheckoutInfoInRange(item)">
+                      <h4 class="shopping_cart_button_checkout_modal_content">{{item.content}}</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="shopping_cart_button_checkout_modal_button_box text-right mx-auto col-3 col-sm-2">
+                  <button type="button" class="btn" id="shopping_cart_button_checkout_modal_cancel" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
     <footer class="text-center">

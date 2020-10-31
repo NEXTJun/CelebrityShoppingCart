@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Gabe Newell's Shopping Cart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
 
   <!-- partial -->
   <link rel="stylesheet" href="static/css/admin.css">
@@ -56,7 +57,8 @@
             <div class="item_inf item_list_inf d-flex my-auto">
 
               <div class="item_list_inf_img_box p-1 my-auto">
-                <img class="img-fluid" id="item_list_inf_img" v-bind:src="item.imgUrl" alt="" v-if="!isItemEdited(index)">
+                <img class="img-fluid" id="item_list_inf_img" v-bind:src="item.imgUrl" alt="" v-if="!isItemEdited(index) && item.imgUrl != ''">
+                <img class="img-fluid" id="item_list_inf_img" src="static/img/none-img.png" alt="" v-else-if="!isItemEdited(index) && item.imgUrl == ''">
                 <input class="ml-2" id="item_list_inf_img_input" type="file" accept="image/png, image/jpeg" v-else v-on:input="updateTmpItemImg($event,item)"></input>
               </div>
               <div class="item_list_inf_name_box my-auto ml-2">
