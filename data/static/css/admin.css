@@ -122,6 +122,7 @@ footer {
 
 .item_list_inf_img_box {
   width: 100px;
+  position: relative;
 }
 
 #item_list_inf_img {
@@ -180,10 +181,19 @@ footer {
   background: #C71F2D;
 }
 
+
+.item_list_inf_img_input_box {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
+}
+
 #item_list_inf_img_input {
   font-size: 10px;
-  color: #515f6e;
-  background: #515f6e;
+  color: #515f6e00;
+  background: #515f6e00;
   width: 100%;
 }
 

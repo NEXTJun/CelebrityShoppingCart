@@ -58,8 +58,11 @@
 
               <div class="item_list_inf_img_box p-1 my-auto">
                 <img class="img-fluid" id="item_list_inf_img" v-bind:src="item.imgUrl" alt="" v-if="!isItemEdited(index) && item.imgUrl != ''">
-                <img class="img-fluid" id="item_list_inf_img" src="static/img/none-img.png" alt="" v-else-if="!isItemEdited(index) && item.imgUrl == ''">
-                <input class="ml-2" id="item_list_inf_img_input" type="file" accept="image/png, image/jpeg" v-else v-on:input="updateTmpItemImg($event,item)"></input>
+                <img class="img-fluid" id="item_list_inf_img" v-bind:src="tmp_item[0].imgUrl" alt="" v-else-if="isItemEdited(index) && tmp_item[0].imgUrl != ''">
+                <img class="img-fluid" id="item_list_inf_img" src="static/img/none-img.png" alt="" v-else>
+                <div class="item_list_inf_img_input_box">
+                  <input class="ml-2" id="item_list_inf_img_input" type="file" accept="image/png, image/jpeg" v-show="isItemEdited(index)" v-on:input="updateTmpItemImg($event,item)"></input>
+                </div>
               </div>
               <div class="item_list_inf_name_box my-auto ml-2">
                 <p class="item_list_inf_name my-auto" v-if="!isItemEdited(index)">{{item.name}}</p>
