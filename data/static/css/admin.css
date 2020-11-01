@@ -146,6 +146,10 @@ footer {
   background: #72B021;
 }
 
+#item_operate_button_ok:active {
+  background: #69a01f;
+}
+
 
 #item_operate_button_setting {
   color: #efefef;
@@ -157,6 +161,11 @@ footer {
   background: #3B7CAB;
 }
 
+#item_operate_button_setting:active {
+  background: #3777A4;
+}
+
+
 #item_operate_button_delete {
   color: #efefef;
   font-size: 1rem;
@@ -165,6 +174,10 @@ footer {
 
 #item_operate_button_delete:hover {
   background: #D62433;
+}
+
+#item_operate_button_delete:active {
+  background: #C71F2D;
 }
 
 #item_list_inf_img_input {
@@ -207,6 +220,10 @@ footer {
   background: #D62433;
 }
 
+#modal_box_delete_confirmation:active {
+  background: #C71F2D;
+}
+
 #modal_box_delete_cancel {
   color: #efefef;
   font-size: 1rem;
@@ -217,6 +234,11 @@ footer {
   background: #3B7CAB;
 }
 
+#modal_box_delete_cancel:active {
+  background: #3777A4;
+}
+
+
 #new_item_button_add {
   color: #efefef;
   font-size: 1.625rem;
@@ -226,4 +248,8 @@ footer {
 
 #new_item_button_add:hover {
   background: #3B7CAB;
+}
+
+#new_item_button_add:active {
+  background: #3777A4;
 }

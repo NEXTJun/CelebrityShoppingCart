@@ -96,6 +96,10 @@ footer {
   background: #3B7CAB;
 }
 
+#login_inf_button:active {
+  background: #3777A4;
+}
+
 #login_inf_input_username,
 #login_inf_input_password {
   background: #dedfe5;

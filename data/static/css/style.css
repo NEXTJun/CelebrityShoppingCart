@@ -144,7 +144,11 @@ main {
   background: #72B021;
 }
 
-#shop_item_button_sell_none {
+#shop_item_button_buy:active {
+  background: #69a01f;
+}
+
+#shop_item_button_none {
   color: #1b2838;
   font-size: 1rem;
   background: #424b50;
@@ -158,6 +162,10 @@ main {
 
 #shop_item_button_sell:hover {
   background: #D62433;
+}
+
+#shop_item_button_sell:active {
+  background: #C71F2D;
 }
 
 .shopping_cart {
@@ -215,6 +223,10 @@ main {
   background: #3B7CAB;
 }
 
+#shopping_cart_button_checkout:active {
+  background: #3777A4;
+}
+
 #shopping_cart_button_checkout_modal_box {
   background: #515f6e;
 }
@@ -244,6 +256,10 @@ main {
 
 #shopping_cart_button_checkout_modal_cancel:hover {
   background: #3B7CAB;
+}
+
+#shopping_cart_button_checkout_modal_cancel:active {
+  background: #3777A4;
 }
 
 .foot_word {
