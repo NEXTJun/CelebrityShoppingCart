@@ -2,7 +2,9 @@ from django.http import HttpResponse, JsonResponse, QueryDict
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.core.files.images import ImageFile
 
 import base64
 import hashlib
@@ -101,7 +103,12 @@ def handleBase64Img(data, raw_data):
             md5_value = md5_obj.hexdigest()
             file_name = md5_value + '.' + ext
             
-            return SimpleUploadedFile(file_name, img_content)
+            # check file exist
+            file_path = 'img/' + file_name
+            if default_storage.exists(file_path):
+                default_storage.delete(file_path)
+            
+            return ImageFile(ContentFile(img_content), file_name)
     return raw_data
 
 def getModelQueryJson(data, **kwargs):
