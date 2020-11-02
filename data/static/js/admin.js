@@ -74,6 +74,9 @@ var app = new Vue({
       });
       this.copySettingItemToTmp(index, this.itemList[index]);
     },
+    updateItemImg: function (event, item) {
+      this.updateTmpItemImg(event);
+    },
     updateTmpItemImg: function (event) {
       const data = URL.createObjectURL(event.target.files[0]);
       this.tmp_item[0].imgUrl = data;

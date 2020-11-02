@@ -62,9 +62,9 @@
                   <input type="number" class="form-control text-center col-sm-12 col-md-8 col-lg-8 my-auto" id="shop_item_input" min="0" v-bind:max="item.amount" v-model="item.count" v-on:input="checkItemInput(item)"></input>
                   <div class="shop_item_button_div d-flex flex-wrap justify-content-around col-sm-12 col-md-4 col-lg-4">
                     <button type="button" class="btn m-1" id="shop_item_button_buy" v-if="item.count < item.amount" v-on:click="addItemCount(item)">BUY</button>
-                    <button type="button" class="btn m-1" id="shop_item_button_none" v-else v-on:click="addItemCount(item)">BUY</button>
+                    <button type="button" class="btn m-1" id="shop_item_button_none" v-else>BUY</button>
                     <button type="button" class="btn m-1" id="shop_item_button_sell" v-if="item.count > 0" v-on:click="subItemCount(item)">SELL</button>
-                    <button type="button" class="btn m-1" id="shop_item_button_none" v-else v-on:click="subItemCount(item)">SELL</button>
+                    <button type="button" class="btn m-1" id="shop_item_button_none" v-else>SELL</button>
                   </div>
                 </div>
               </div>
