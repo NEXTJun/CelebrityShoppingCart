@@ -29,6 +29,10 @@ var app = new Vue({
     addSettingItem: function () {
       this.postRequestItemList();
     },
+    updateItemImg: function (event, item) {
+      this.updateTmpItemImg(event);
+      this.changeImgToBase64(event, item);
+    },
     updateTmpItemImg: function (event) {
       const data = URL.createObjectURL(event.target.files[0]);
       this.tmp_item.img = data;

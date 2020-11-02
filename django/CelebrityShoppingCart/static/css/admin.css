@@ -122,6 +122,7 @@ footer {
 
 .item_list_inf_img_box {
   width: 100px;
+  position: relative;
 }
 
 #item_list_inf_img {
@@ -139,25 +140,60 @@ footer {
 #item_operate_button_ok {
   color: #efefef;
   font-size: 1rem;
-  background-image: linear-gradient(#73ad21, #69a01f);
+  background: #69a01f;
 }
+
+#item_operate_button_ok:hover {
+  background: #72B021;
+}
+
+#item_operate_button_ok:active {
+  background: #69a01f;
+}
+
 
 #item_operate_button_setting {
   color: #efefef;
   font-size: 1rem;
-  background-image: linear-gradient(#3c91ae, #366d93);
+  background: #3777A4;
 }
+
+#item_operate_button_setting:hover {
+  background: #3B7CAB;
+}
+
+#item_operate_button_setting:active {
+  background: #3777A4;
+}
+
 
 #item_operate_button_delete {
   color: #efefef;
   font-size: 1rem;
-  background-image: linear-gradient(#cc3341, #a01f29);
+  background: #C71F2D;
+}
+
+#item_operate_button_delete:hover {
+  background: #D62433;
+}
+
+#item_operate_button_delete:active {
+  background: #C71F2D;
+}
+
+
+.item_list_inf_img_input_box {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
 }
 
 #item_list_inf_img_input {
   font-size: 10px;
-  color: #515f6e;
-  background: #515f6e;
+  color: #515f6e00;
+  background: #515f6e00;
   width: 100%;
 }
 
@@ -187,18 +223,43 @@ footer {
 #modal_box_delete_confirmation {
   color: #efefef;
   font-size: 1rem;
-  background-image: linear-gradient(#cc3341, #a01f29);
+  background: #C71F2D;
+}
+
+#modal_box_delete_confirmation:hover {
+  background: #D62433;
+}
+
+#modal_box_delete_confirmation:active {
+  background: #C71F2D;
 }
 
 #modal_box_delete_cancel {
   color: #efefef;
   font-size: 1rem;
-  background-image: linear-gradient(#3c91ae, #366d93);
+  background: #3777A4;
 }
+
+#modal_box_delete_cancel:hover {
+  background: #3B7CAB;
+}
+
+#modal_box_delete_cancel:active {
+  background: #3777A4;
+}
+
 
 #new_item_button_add {
   color: #efefef;
   font-size: 1.625rem;
-  background-image: linear-gradient(#3c91ae, #366d93);
   border-radius: 100px;
+  background: #3777A4;
+}
+
+#new_item_button_add:hover {
+  background: #3B7CAB;
+}
+
+#new_item_button_add:active {
+  background: #3777A4;
 }
