@@ -1,27 +1,39 @@
 version: '3'
 services:
 
-  web:
-    build:
-      context: ./django
-      args:
-        SUPER_USERNAME: "user123"
-        SUPER_PASSWORD: "user123"
-    ports:
-      - "80:80"
-    volumes:
-      - ./django/CelebrityShoppingCart/media:/app/CelebrityShoppingCart/media
-    restart: always
-    container_name: celebrity_shopping_cart_webserver
-    depends_on:
-      - database
-
   database:
     image: postgres:12-alpine
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "user123"
+      POSTGRES_PASSWORD: "password"
     ports:
-      - "5432:5432"
-    container_name: 'celebrity_shopping_cart_database'
+      - "5432:5432"      
+    volumes:
+      - ./data/pgdata:/var/lib/postgresql/data/
+    container_name: "celebrity_shopping_cart_database"
+
+  application:
+    build:
+      context: ./django
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./django/CelebrityShoppingCart/media:/app/CelebrityShoppingCart/media
+    restart: always
+    container_name: "celebrity_shopping_cart_application"
+    depends_on:
+      - database
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "433:433"
+    volumes:
+      - ./django/CelebrityShoppingCart/static:/app/CelebrityShoppingCart/static
+      - ./django/CelebrityShoppingCart/media:/app/CelebrityShoppingCart/media
+    restart: always
+    container_name: "celebrity_shopping_cart_nginx"
+    depends_on:
+      - application
 
